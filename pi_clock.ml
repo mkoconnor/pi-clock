@@ -72,12 +72,21 @@ module Time = struct
     of_int_array (Array.of_list (List.rev !l))
 end
 
+class type data = object
+  method pi_power : int Js.readonly_prop
+  method decimal_value : Js.js_string Js.t Js.readonly_prop
+  method ten_power : int Js.readonly_prop
+end
+
+let data_array : data Js.t Js.js_array = Js.unsafe_variable "pi_powers"
 
 module Datapoint = struct
   type t = {
     time : Time.t;
     milliseconds : int;
-    data : Data.t;
+    pi_power : int;
+    decimal_value : string;
+    ten_power : int;
   }
 
   let of_data (data : Data.t) =

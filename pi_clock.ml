@@ -36,10 +36,15 @@ let times_of_int_array a =
   let two_digit_hour =
     let hour = 10 * a.(0) + a.(1) in
     let minutes = 10 * a.(2) + a.(3) in
-    if hour < 24 && minutes < 60
-
-
-
+    if hour >= 24 || minutes >= 60
+    then []
+    else [
+      hour * 60 * 60 * 1000
+      + minutes * 60 * 1000
+      + milliseconds_of_second_index 4
+    ]
+  in
+  single_digit_hour @ two_digit_hour
 
 module Datapoint = struct
   type t = {

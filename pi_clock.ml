@@ -73,9 +73,9 @@ module Time = struct
 end
 
 class type data = object
-  method pi_power : int Js.readonly_prop
-  method decimal_value : Js.js_string Js.t Js.readonly_prop
-  method ten_power : int Js.readonly_prop
+  method pi_power_ : int Js.readonly_prop
+  method decimal_value_ : Js.js_string Js.t Js.readonly_prop
+  method ten_power_ : int Js.readonly_prop
 end
 
 let data_array : data Js.t Js.js_array Js.t = Js.Unsafe.variable "pi_powers"
@@ -90,18 +90,19 @@ module Datapoint = struct
   }
 
   let of_data (data : data Js.t) =
-    List.map (Time.of_string (Js.to_string data##decimal_value)) ~f:(fun time ->
-      let milliseconds = Time.to_milliseconds time in
-      {
-        time;
-        milliseconds;
-        pi_power = data##pi_power;
-        decimal_value = Js.to_string data##decimal_value;
-        ten_power = data##ten_power;
-      }
-    )
+    List.map (Time.of_string (Js.to_string data##decimal_value_))
+      ~f:(fun time ->
+        let milliseconds = Time.to_milliseconds time in
+        {
+          time;
+          milliseconds;
+          pi_power = data##pi_power_;
+          decimal_value = Js.to_string data##decimal_value_;
+          ten_power = data##ten_power_;
+        }
+      )
 
-  let array () = Array.sort
+  let array = Array.sort
     (fun t1 t2 -> compare t1.milliseconds t2.milliseconds)
     (Array.concat
        (List.map

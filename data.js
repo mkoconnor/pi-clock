@@ -10003,4 +10003,6 @@ var pi_powers = [
 { "pi_power" : 9998,  "decimal_value" :"3.19467877189148753716272230126857591919",  "ten_power" : 4970},
 { "pi_power" : 9999,  "decimal_value" :"1.003637936035356009871321366184354304038",  "ten_power" : 4971},
 { "pi_power" : 10000,  "decimal_value" :"3.153021566712697257389394633266511126819",  "ten_power" : 4971},
-]
+];
+
+// console.log(pi_powers[1].pi_power);

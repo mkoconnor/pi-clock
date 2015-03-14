@@ -13,42 +13,59 @@ let rec pow10 = function
     if i < 0 then raise "negative power"
     else 10 * pow10 (i - 1)
 
-let times_of_int_array a =
-  let milliseconds_of_second_index i =
-    let rec loop acc i j =
-      if i >= Array.length a || j < 0
-      then acc
-      else loop (acc + a.(i) * pow10 j) (i + 1) (j - 1)
+module Time = struct
+  type t = {
+    hours : int;
+    minutes : int;
+    milliseconds : int;
+  }
+
+  let to_milliseconds t =
+    t.hours * 60 * 60 * 1000
+    + t.minutes * 60 * 1000
+    + milliseconds
+
+  let of_int_array a =
+    let milliseconds_of_second_index i =
+      let rec loop acc i j =
+        if i >= Array.length a || j < 0
+        then acc
+        else loop (acc + a.(i) * pow10 j) (i + 1) (j - 1)
+      in
+      loop 0 i 5
     in
-    loop 0 i 5
-  in
-  let single_digit_hour =
-    let minutes = a.(1) * 10 + a.(2) in
-    if minutes >= 60
-    then []
-    else
-      [
-        a.(0) * 60 * 60 * 1000
-        + minutes * 60 * 1000
-        + milliseconds_of_second_index 3
+    let single_digit_hour =
+      let minutes = a.(1) * 10 + a.(2) in
+      if minutes >= 60
+      then []
+      else
+        [
+          {
+            hours = a.0;
+            minutes;
+            milliseconds = milliseconds_of_second_index 3;
+          }
+        ]
+    in
+    let two_digit_hour =
+      let hours = 10 * a.(0) + a.(1) in
+      let minutes = 10 * a.(2) + a.(3) in
+      if hours >= 24 || minutes >= 60
+      then []
+      else [
+        {
+          hours;
+          minutes;
+          milliseconds = milliseconds_of_second_index 4;
+        }
       ]
-  in
-  let two_digit_hour =
-    let hour = 10 * a.(0) + a.(1) in
-    let minutes = 10 * a.(2) + a.(3) in
-    if hour >= 24 || minutes >= 60
-    then []
-    else [
-      hour * 60 * 60 * 1000
-      + minutes * 60 * 1000
-      + milliseconds_of_second_index 4
-    ]
-  in
-  single_digit_hour @ two_digit_hour
+    in
+    single_digit_hour @ two_digit_hour
+end
 
 module Datapoint = struct
   type t = {
-    milliseconds : int;
+    time : Time.t;
     pi_exponent : int;
     decimal : Decimal.t;
   }

@@ -4,23 +4,23 @@ type t = {
   ten_power : int;
 }
 
-let data = [|
-  {pi_power = 1; decimal_value="3.1415926535897932384626433832795028842"; ten_power = 0; }
-{pi_power = 2; decimal_value="9.86960440108935861883449099987615940243"; ten_power = 0; }
-{pi_power = 3; decimal_value="31.00627668029982017547631506710139520226"; ten_power = 0; }
-{pi_power = 4; decimal_value="97.40909103400243723644033268870511124987"; ten_power = 0; }
-{pi_power = 5; decimal_value="306.01968478528145326274131004343560648086"; ten_power = 0; }
-{pi_power = 6; decimal_value="961.38919357530443703021944365241989886935"; ten_power = 0; }
+let data = [
+  {pi_power = 1; decimal_value="3.1415926535897932384626433832795028842"; ten_power = 0; };
+{pi_power = 2; decimal_value="9.86960440108935861883449099987615940243"; ten_power = 0; };
+{pi_power = 3; decimal_value="31.00627668029982017547631506710139520226"; ten_power = 0; };
+{pi_power = 4; decimal_value="97.40909103400243723644033268870511124987"; ten_power = 0; };
+{pi_power = 5; decimal_value="306.01968478528145326274131004343560648086"; ten_power = 0; };
+{pi_power = 6; decimal_value="961.38919357530443703021944365241989886935"; ten_power = 0; };
 {pi_power = 7; decimal_value="3020.29322777679206751420649307204183192513"; ten_power = 0;
-}
-{pi_power = 8; decimal_value="9488.5310160705740071285755039067657967253"; ten_power = 0; }
+};
+{pi_power = 8; decimal_value="9488.5310160705740071285755039067657967253"; ten_power = 0; };
 {pi_power = 9; decimal_value="29809.09933344621166650940240123965536396641"; ten_power =
-    0; }
+    0; };
 {pi_power = 10; decimal_value="93648.04747608302097371669018491934563633774"; ten_power =
-    0; }
+    0; };
 {pi_power = 11; decimal_value="294204.01797389059710569564200718466702873041"; ten_power =
-0; }
-{pi_power = 12; decimal_value="924269.1815233741862225792"; ten_power = 0; }
+0; };
+{pi_power = 12; decimal_value="924269.1815233741862225792"; ten_power = 0; };
 {pi_power = 13; decimal_value="2.9036772706132834049885962"; ten_power = 6};
 {pi_power = 14; decimal_value="9.1221711817543531702043751"; ten_power = 6};
 {pi_power = 15; decimal_value="2.8658145969387998453378822"; ten_power = 7};
@@ -10009,4 +10009,4 @@ let data = [|
 {pi_power = 9998; decimal_value="3.19467877189148753716272230126857591919"; ten_power = 4970};
 {pi_power = 9999; decimal_value="1.003637936035356009871321366184354304038"; ten_power = 4971};
 {pi_power = 10000; decimal_value="3.153021566712697257389394633266511126819"; ten_power = 4971};
-|]
+]

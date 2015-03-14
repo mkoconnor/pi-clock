@@ -3,7 +3,7 @@ open StdLabels
 let rec pow10 = function
   | 0 -> 1
   | i ->
-    if i < 0 then raise "negative power"
+    if i < 0 then failwith "negative power"
     else 10 * pow10 (i - 1)
 
 module Time = struct
@@ -16,7 +16,7 @@ module Time = struct
   let to_milliseconds t =
     t.hours * 60 * 60 * 1000
     + t.minutes * 60 * 1000
-    + milliseconds
+    + t.milliseconds
 
   let of_int_array a =
     let milliseconds_of_second_index i =
@@ -34,7 +34,7 @@ module Time = struct
       else
         [
           {
-            hours = a.0;
+            hours = a.(0);
             minutes;
             milliseconds = milliseconds_of_second_index 3;
           }
@@ -81,17 +81,19 @@ module Datapoint = struct
   }
 
   let of_data (data : Data.t) =
-    let time = Time.of_string data.decimal_value in
-    let milliseconds = Time.to_milliseconds time in
-    {
-      time;
-      milliseconds;
-      data;
-    }
+    List.map (Time.of_string data.decimal_value) ~f:(fun time ->
+      let milliseconds = Time.to_milliseconds time in
+      {
+        time;
+        milliseconds;
+        data;
+      }
+    )
 
   let array = Array.sort
     (fun t1 t2 -> compare t1.milliseconds t2.milliseconds)
-    (Array.map Data.data ~f:of_data)
+    (Array.concat
+       (List.map Data.data ~f:(fun data -> Array.of_list (of_data data))))
 end
 
 let () = print_endline "hmm"

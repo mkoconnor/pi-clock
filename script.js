@@ -10,6 +10,14 @@ var timeToMilliseconds = function (time) {
     return acc;
 }
 
+var to_padded_string = function(num) {
+    if (num >= 10) {
+        return num.toString();
+    } else {
+        return "0" + num.toString();
+    }
+};
+
 $(document).ready(function () {
     var current_index = 0;
     var advance_index = function (now) {
@@ -28,7 +36,12 @@ $(document).ready(function () {
         var now_ms = timeToMilliseconds(now);
         advance_index (now_ms);
         $("#current-hours").html((now.getHours()).toString());
-        $("#milliseconds").html(now_ms);
-        $("#pipower").html(pi_powers[current_index].pi_power.toString());
+        $("#current-minutes").html(to_padded_string(now.getMinutes()));
+        $("#current-seconds").html(to_padded_string(now.getSeconds() + (now.getMilliseconds ()) / 1000));
+
+        var current_pi_power = pi_powers[current_index];
+        
+        $("#pipower").html(current_pi_power.pi_power.toString());
+        
     }, 100);
 });

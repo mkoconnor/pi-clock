@@ -28,6 +28,6 @@ $(document).ready(function () {
         var now = nowInMilliseconds();
         advance_index (now);
         $("#milliseconds").html(now);
-        $("#pipower").html(pi_powers[current_index].pi_power);
+        $("#pipower").html(pi_powers[current_index].pi_power.toString());
     }, 100);
 });

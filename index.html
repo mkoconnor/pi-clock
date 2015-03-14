@@ -1,14 +1,41 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Hello</title>
+    <title>Powers of Pi Clock</title>
+     <link rel="stylesheet"
+           href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+          <link rel="stylesheet"
+                href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+          <link rel="stylesheet" href="stylesheet.css"/>
+    <script type="text/javascript"
+            src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
     <script type="text/javascript"
             src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
     <script type="text/javascript" src="data.js"></script>
     <script type="text/javascript" src="script.js"></script>
   </head>
-  Did the script load?
 
-  <p>Here's the pi power: <span id="pipower"></span>.</p>
+  <h1>Powers of \(\pi\) Clock</h1>
+
+  <h3>Never miss a \(\pi\) time again!</h3>
+
+  <table>
+    <tr>
+      <td>Current time:</td>
+      <td></td>
+      <td><span id="current-hours"></span></td>
+      <td><span id="current-minutes"></span></td>
+      <td><span id="current-seconds"></span></td>
+    </tr>
+    <tr>
+      <td>Next \(\pi\) time:</td>
+      <td>\(\pi^\cssId{pipower}{9999}\approx{}\)</td>
+      <td><span id="pi-hours"></span></td>
+      <td><span id="pi-minutes"></span></td>
+      <td><span id="pi-seconds"></span></td>
+    </tr>
+  </table>
+  
   <p>Here's the milliseconds: <span id="milliseconds"></span>.</p>
 </html>

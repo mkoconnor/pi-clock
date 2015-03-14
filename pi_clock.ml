@@ -1,17 +1,4 @@
-open Sexplib.Conv
-
-type t = {
-  foo : int;
-} with sexp
-
 open StdLabels
-
-module Decimal = struct
-  type t = {
-    non_exponent : string;
-    exponent : int;
-  }
-end
 
 let rec pow10 = function
   | 0 -> 1
@@ -67,41 +54,44 @@ module Time = struct
       ]
     in
     single_digit_hour @ two_digit_hour
+
+  let of_string s =
+    let l = ref [] in
+    let rec loop i =
+      if i >= 0
+      then begin
+        begin
+          match s.[i] with
+          | '0' .. '9' as c ->  l := (int_of_char c - int_of_char '0') :: !l
+          | _ -> ()
+        end;
+        loop (i - 1)
+      end
+    in
+    loop (String.length s - 1);
+    of_int_array (Array.of_list (List.rev !l))
 end
+
 
 module Datapoint = struct
   type t = {
     time : Time.t;
-    pi_exponent : int option;
-    decimal : Decimal.t;
+    milliseconds : int;
+    data : Data.t;
   }
 
-  let of_string s =
-    let index_of_first_comma =
-      let rec loop i =
-        if s.[i] = ','
-        then i
-        else loop (i + 1)
-      in
-      loop 0
-    in
-    let pi_exponent = int_of_string (
-      String.sub s ~pos:1 ~len:(index_of_first_comma - 1)
-    )
-    in
-    let index_of_backtick =
-      let rec loop i =
-        if s.[i] = '`'
-        then i
-        else loop (i + 1)
-      in
-      loop (index_of_first_comma + 1)
-    in
-    let non_exponent =
-      String.sub s ~pos:(index_of_first_comma + 2)
-        ~len:(index_of_backtick - index_of_first_comma - 2)
-    in
+  let of_data (data : Data.t) =
+    let time = Time.of_string data.decimal_value in
+    let milliseconds = Time.to_milliseconds time in
+    {
+      time;
+      milliseconds;
+      data;
+    }
 
+  let array = Array.sort
+    (fun t1 t2 -> compare t1.milliseconds t2.milliseconds)
+    (Array.map Data.data ~f:of_data)
 end
 
-let () = print_endline Data.data
+let () = print_endline "hmm"

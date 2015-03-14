@@ -4,7 +4,7 @@ type t = {
   ten_power : int;
 }
 
-let data = [
+let data () = [
   {pi_power = 1; decimal_value="3.1415926535897932384626433832795028842"; ten_power = 0; };
 {pi_power = 2; decimal_value="9.86960440108935861883449099987615940243"; ten_power = 0; };
 {pi_power = 3; decimal_value="31.00627668029982017547631506710139520226"; ten_power = 0; };

@@ -90,10 +90,10 @@ module Datapoint = struct
       }
     )
 
-  let array = Array.sort
+  let array () = Array.sort
     (fun t1 t2 -> compare t1.milliseconds t2.milliseconds)
     (Array.concat
-       (List.map Data.data ~f:(fun data -> Array.of_list (of_data data))))
+       (List.map (Data.data ()) ~f:(fun data -> Array.of_list (of_data data))))
 end
 
 let () = print_endline "hmm"

@@ -1,3 +1,9 @@
+open Sexplib.Conv
+
+type t = {
+  foo : int;
+} with sexp
+
 open StdLabels
 
 module Decimal = struct
@@ -66,7 +72,7 @@ end
 module Datapoint = struct
   type t = {
     time : Time.t;
-    pi_exponent : int;
+    pi_exponent : int option;
     decimal : Decimal.t;
   }
 
@@ -91,10 +97,11 @@ module Datapoint = struct
       in
       loop (index_of_first_comma + 1)
     in
-    let non_exponent = String.sub s ~pos:(index_of_first_comma + 2)
+    let non_exponent =
+      String.sub s ~pos:(index_of_first_comma + 2)
+        ~len:(index_of_backtick - index_of_first_comma - 2)
+    in
 
 end
-
-let parse_data
 
 let () = print_endline Data.data

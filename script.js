@@ -1,13 +1,12 @@
-var nowInMilliseconds = function () {
-    var now = new Date(Date.now ());
+var timeToMilliseconds = function (time) {
     var acc = 0;
-    acc += now.getHours ();
+    acc += time.getHours ();
     acc *= 60;
-    acc += now.getMinutes ();
+    acc += time.getMinutes ();
     acc *= 60;
-    acc += now.getSeconds ();
+    acc += time.getSeconds ();
     acc *= 1000;
-    acc += now.getMilliseconds ();
+    acc += time.getMilliseconds ();
     return acc;
 }
 
@@ -25,9 +24,11 @@ $(document).ready(function () {
     };
         
     setInterval(function () {
-        var now = nowInMilliseconds();
-        advance_index (now);
-        $("#milliseconds").html(now);
+        var now = new Date(Date.now ());
+        var now_ms = timeToMilliseconds(now);
+        advance_index (now_ms);
+        $("#current-hours").html((now.getHours()).toString());
+        $("#milliseconds").html(now_ms);
         $("#pipower").html(pi_powers[current_index].pi_power.toString());
     }, 100);
 });

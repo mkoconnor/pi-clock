@@ -1,1 +1,1 @@
-let () = Printf.printf Data.data
+let () = print_endline Data.data

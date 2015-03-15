@@ -18,6 +18,8 @@ var to_padded_string = function(num) {
     }
 };
 
+var zeroes = "00000000000000000000000";
+
 $(document).ready(function () {
     var current_index = 0;
     var first_time_advance_called = true;
@@ -52,6 +54,9 @@ $(document).ready(function () {
         $("#current-minutes").html(to_padded_string(now.getMinutes()));
         var second_string = to_padded_string(now.getSeconds() + (now.getMilliseconds ()) / 1000);
         second_string = second_string.substring(0,Math.min(6,second_string.length));
+        if (second_string.length < 6) {
+            second_string = second_string + zeroes.substring(0,6 - second_string.length);
+        }
         $("#current-seconds").html(second_string);
 
 

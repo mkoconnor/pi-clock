@@ -37,11 +37,22 @@ $(document).ready(function () {
         advance_index (now_ms);
         $("#current-hours").html((now.getHours()).toString());
         $("#current-minutes").html(to_padded_string(now.getMinutes()));
-        $("#current-seconds").html(to_padded_string(now.getSeconds() + (now.getMilliseconds ()) / 1000));
+        var second_string = to_padded_string(now.getSeconds() + (now.getMilliseconds ()) / 1000);
+        second_string = second_string.substring(0,Math.min(6,second_string.length));
+        $("#current-seconds").html(second_string);
 
         var current_pi_power = pi_powers[current_index];
         
         $("#pipower").html(current_pi_power.pi_power.toString());
+
+        // var decimal_point_index = 0;
+        // while (! (current_pi_power.value.charAt(decimal_point_index) === ".")) {
+        //     decimal_point_index += 1;
+        // }
+
+        // var 
+        
+        // $("#pi-hours").html(current_pi_power.milliseconds
         
     }, 100);
 });

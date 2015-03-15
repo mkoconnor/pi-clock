@@ -42,9 +42,11 @@ $(document).ready(function () {
         var now_ms = timeToMilliseconds(now);
         var advanced = advance_index (now_ms);
         var hourString = (now.getHours()).toString ()
+        // add a space to match with the decimal point in the pi time below
         if (now.getHours () >= 10) {
-            // add a space to match with the decimal point in the pi time below
             hourString = hourString.charAt(0) + " " + hourString.charAt(1);
+        } else {
+            hourString = hourString + " ";
         }
         $("#current-hours").html(hourString);
         $("#current-minutes").html(to_padded_string(now.getMinutes()));

@@ -20,9 +20,10 @@ var to_padded_string = function(num) {
 
 $(document).ready(function () {
     var current_index = 0;
+    var first_time_advance_called = true;
     var advance_index = function (now) {
         var advanced = false;
-        if (now > 86340840) // the maximum number of milliseconds in pi_powers
+        if (now > 86376000) // the maximum number of milliseconds in pi_powers
         {
             current_index = 0;
             return true;
@@ -31,7 +32,9 @@ $(document).ready(function () {
             advanced = true;
             current_index += 1;
         }
-        return advanced;
+        var was_first_time_advance_called = first_time_advance_called;
+        first_time_advance_called = false;
+        return was_first_time_advance_called || advanced;
     };
         
     setInterval(function () {
@@ -49,11 +52,15 @@ $(document).ready(function () {
         second_string = second_string.substring(0,Math.min(6,second_string.length));
         $("#current-seconds").html(second_string);
 
+
+        var current_pi_power = pi_powers[current_index];
+
+        // do these outside of the loop as a hack: they need to be updated
+        // the first time because otherwise mathjax overwrites them.
+        $("#pipower").html(current_pi_power.pi_power.toString());
+        $("#tenpower").html(current_pi_power.exponent.toString());
+
         if (advanced) {
-            
-            var current_pi_power = pi_powers[current_index];
-            
-            $("#pipower").html(current_pi_power.pi_power.toString());
 
             var value = current_pi_power.value;
             var use_one_digit_hour = false;
@@ -72,8 +79,6 @@ $(document).ready(function () {
             var fakeTwoDigit = (new Date(0,0,0,two_digit_hour, two_digit_minutes, two_digit_seconds, two_digit_milliseconds)).getTime();
 
             var use_one_digit = fakeNow < fakeOneDigit || fakeTwoDigit <= fakeNow || two_digit_hour >= 24 || two_digit_minutes >= 60 || two_digit_seconds >= 60;
-
-            $("#tenpower").html(current_pi_power.exponent.toString());
 
             if (use_one_digit) {
                 $("#pi-hours").html(one_digit_hour.toString() + ".");

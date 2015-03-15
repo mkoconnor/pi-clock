@@ -54,26 +54,25 @@ $(document).ready(function () {
 //        var one_digit_seconds = parseFloat("0." + value.substring(4,value.length)) * 100;
         var two_digit_hour = parseInt(value.charAt(0)) * 10 + parseInt(value.charAt(2));
         var two_digit_minutes = parseInt(value.substring(3,5));
-        var one_digit_seconds = parseInt(value.substring(5,7));
-        var one_digit_milliseconds = parseInt(value.substring(7,10));
+        var two_digit_seconds = parseInt(value.substring(5,7));
+        var two_digit_milliseconds = parseInt(value.substring(7,10));
 
         var fakeNow = (new Date(0,0,0,now.getHours(),now.getMinutes(),now.getSeconds(),now.getMilliseconds())).getTime();
         var fakeOneDigit = (new Date(0,0,0,one_digit_hour, one_digit_minutes, one_digit_seconds, one_digit_milliseconds)).getTime();
         var fakeTwoDigit = (new Date(0,0,0,two_digit_hour, two_digit_minutes, two_digit_seconds, two_digit_milliseconds)).getTime();
 
-        var use_one_digit = 
-        
-        if 
-        if (
-        
-        var decimal_point_index = 0;
-        while (! (current_pi_power.value.charAt(decimal_point_index) === ".")) {
-            decimal_point_index += 1;
-        }
+        var use_one_digit = fakeNow < fakeOneDigit || fakeTwoDigit <= fakeNow;
 
-        var 
-        
-        $("#pi-hours").html(current_pi_power.milliseconds
-        
+        $("#tenpower").html(current_pi_power.exponent.toString());
+
+        if (use_one_digit) {
+            $("#pi-hours").html(one_digit_hour.toString() + ".");
+            $("#pi-minutes").html(value.substring(2,4));
+            $("#pi-seconds").html(value.substring(4,6));
+        } else {
+            $("#pi-hours").html(value.charAt(0) + "." + value.charAt(2));
+            $("#pi-minutes").html(value.substring(3,5));
+            $("#pi-seconds").html(value.substring(5,7));
+        }
     }, 100);
 });

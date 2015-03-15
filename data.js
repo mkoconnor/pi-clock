@@ -3854,7 +3854,6 @@ var pi_powers = [
 {"pi_power" : 4743, "value" : "9.59060905956380319993243711", "exponent":2357, "milliseconds" : 35946100},
 {"pi_power" : 7199, "value" : "9.592537928795292573171144180836206", "exponent":3578, "milliseconds" : 35965400},
 {"pi_power" : 9655, "value" : "9.5944671859621559231301050605714636464471", "exponent":4799, "milliseconds" : 35984700},
-{"pi_power" : 0, "value" : "1.", "exponent":0, "milliseconds" : 36000000},
 {"pi_power" : 2456, "value" : "1.0002011206190878873556317", "exponent":1221, "milliseconds" : 36020000},
 {"pi_power" : 4912, "value" : "1.0004022816876791970063431402338157", "exponent":2442, "milliseconds" : 36040000},
 {"pi_power" : 877, "value" : "1.0010098540796405312607151658043", "exponent":436, "milliseconds" : 36061000},

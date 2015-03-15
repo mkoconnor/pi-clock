@@ -21,20 +21,23 @@ var to_padded_string = function(num) {
 $(document).ready(function () {
     var current_index = 0;
     var advance_index = function (now) {
+        var advanced = false;
         if (now > 86340840) // the maximum number of milliseconds in pi_powers
         {
             current_index = 0;
-            return;
+            return true;
         }
         while (pi_powers[current_index].milliseconds < now) {
+            advanced = true;
             current_index += 1;
         }
+        return advanced;
     };
         
     setInterval(function () {
         var now = new Date(Date.now ());
         var now_ms = timeToMilliseconds(now);
-        advance_index (now_ms);
+        var advanced = advance_index (now_ms);
         var hourString = (now.getHours()).toString ()
         if (now.getHours () >= 10) {
             // add a space to match with the decimal point in the pi time below
@@ -46,38 +49,41 @@ $(document).ready(function () {
         second_string = second_string.substring(0,Math.min(6,second_string.length));
         $("#current-seconds").html(second_string);
 
-        var current_pi_power = pi_powers[current_index];
-        
-        $("#pipower").html(current_pi_power.pi_power.toString());
+        if (advanced) {
+            
+            var current_pi_power = pi_powers[current_index];
+            
+            $("#pipower").html(current_pi_power.pi_power.toString());
 
-        var value = current_pi_power.value;
-        var use_one_digit_hour = false;
-        var one_digit_hour = parseInt(value.charAt(0));
-        var one_digit_minutes = parseInt(value.substring(2,4));
-        var one_digit_seconds = parseInt(value.substring(4,6));
-        var one_digit_milliseconds = parseInt(value.substring(6,9));
-//        var one_digit_seconds = parseFloat("0." + value.substring(4,value.length)) * 100;
-        var two_digit_hour = parseInt(value.charAt(0)) * 10 + parseInt(value.charAt(2));
-        var two_digit_minutes = parseInt(value.substring(3,5));
-        var two_digit_seconds = parseInt(value.substring(5,7));
-        var two_digit_milliseconds = parseInt(value.substring(7,10));
+            var value = current_pi_power.value;
+            var use_one_digit_hour = false;
+            var one_digit_hour = parseInt(value.charAt(0));
+            var one_digit_minutes = parseInt(value.substring(2,4));
+            var one_digit_seconds = parseInt(value.substring(4,6));
+            var one_digit_milliseconds = parseInt(value.substring(6,9));
+            //        var one_digit_seconds = parseFloat("0." + value.substring(4,value.length)) * 100;
+            var two_digit_hour = parseInt(value.charAt(0)) * 10 + parseInt(value.charAt(2));
+            var two_digit_minutes = parseInt(value.substring(3,5));
+            var two_digit_seconds = parseInt(value.substring(5,7));
+            var two_digit_milliseconds = parseInt(value.substring(7,10));
 
-        var fakeNow = (new Date(0,0,0,now.getHours(),now.getMinutes(),now.getSeconds(),now.getMilliseconds())).getTime();
-        var fakeOneDigit = (new Date(0,0,0,one_digit_hour, one_digit_minutes, one_digit_seconds, one_digit_milliseconds)).getTime();
-        var fakeTwoDigit = (new Date(0,0,0,two_digit_hour, two_digit_minutes, two_digit_seconds, two_digit_milliseconds)).getTime();
+            var fakeNow = (new Date(0,0,0,now.getHours(),now.getMinutes(),now.getSeconds(),now.getMilliseconds())).getTime();
+            var fakeOneDigit = (new Date(0,0,0,one_digit_hour, one_digit_minutes, one_digit_seconds, one_digit_milliseconds)).getTime();
+            var fakeTwoDigit = (new Date(0,0,0,two_digit_hour, two_digit_minutes, two_digit_seconds, two_digit_milliseconds)).getTime();
 
-        var use_one_digit = fakeNow < fakeOneDigit || fakeTwoDigit <= fakeNow;
+            var use_one_digit = fakeNow < fakeOneDigit || fakeTwoDigit <= fakeNow || two_digit_hour >= 24 || two_digit_minutes >= 60 || two_digit_seconds >= 60;
 
-        $("#tenpower").html(current_pi_power.exponent.toString());
+            $("#tenpower").html(current_pi_power.exponent.toString());
 
-        if (use_one_digit) {
-            $("#pi-hours").html(one_digit_hour.toString() + ".");
-            $("#pi-minutes").html(value.substring(2,4));
-            $("#pi-seconds").html(value.substring(4,6) + " " + value.substring(6,9));
-        } else {
-            $("#pi-hours").html(value.charAt(0) + "." + value.charAt(2));
-            $("#pi-minutes").html(value.substring(3,5));
-            $("#pi-seconds").html(value.substring(5,7) + " " + value.substring(7,10));
+            if (use_one_digit) {
+                $("#pi-hours").html(one_digit_hour.toString() + ".");
+                $("#pi-minutes").html(value.substring(2,4));
+                $("#pi-seconds").html(value.substring(4,6) + " " + value.substring(6,9));
+            } else {
+                $("#pi-hours").html(value.charAt(0) + "." + value.charAt(2));
+                $("#pi-minutes").html(value.substring(3,5));
+                $("#pi-seconds").html(value.substring(5,7) + " " + value.substring(7,10));
+            }
         }
     }, 100);
 });

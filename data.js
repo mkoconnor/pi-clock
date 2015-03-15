@@ -1,5 +1,5 @@
 var pi_powers = [
-{"pi_power" : 0, "value" : "1.", "exponent":1, "milliseconds" : 3600000},
+{"pi_power" : 0, "value" : "1.0000000000000000000", "exponent":1, "milliseconds" : 3600000},
 {"pi_power" : 2456, "value" : "1.0002011206190878873556317", "exponent":1221, "milliseconds" : 3602000},
 {"pi_power" : 4912, "value" : "1.0004022816876791970063431402338157", "exponent":2442, "milliseconds" : 3604000},
 {"pi_power" : 7368, "value" : "1.00060348321390915812222392742920756594769", "exponent":3663, "milliseconds" : 3606000},

@@ -35,7 +35,12 @@ $(document).ready(function () {
         var now = new Date(Date.now ());
         var now_ms = timeToMilliseconds(now);
         advance_index (now_ms);
-        $("#current-hours").html((now.getHours()).toString());
+        var hourString = (now.getHours()).toString ()
+        if (now.getHours () >= 10) {
+            // add a space to match with the decimal point in the pi time below
+            hourString = hourString.charAt(0) + " " + hourString.charAt(1);
+        }
+        $("#current-hours").html(hourString);
         $("#current-minutes").html(to_padded_string(now.getMinutes()));
         var second_string = to_padded_string(now.getSeconds() + (now.getMilliseconds ()) / 1000);
         second_string = second_string.substring(0,Math.min(6,second_string.length));
@@ -68,11 +73,11 @@ $(document).ready(function () {
         if (use_one_digit) {
             $("#pi-hours").html(one_digit_hour.toString() + ".");
             $("#pi-minutes").html(value.substring(2,4));
-            $("#pi-seconds").html(value.substring(4,6));
+            $("#pi-seconds").html(value.substring(4,6) + " " + value.substring(6,9));
         } else {
             $("#pi-hours").html(value.charAt(0) + "." + value.charAt(2));
             $("#pi-minutes").html(value.substring(3,5));
-            $("#pi-seconds").html(value.substring(5,7));
+            $("#pi-seconds").html(value.substring(5,7) + " " + value.substring(7,10));
         }
     }, 100);
 });

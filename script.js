@@ -36,7 +36,7 @@ $(document).ready(function () {
         first_time_advance_called = false;
         return was_first_time_advance_called || advanced;
     };
-        
+
     setInterval(function () {
         var now = new Date(Date.now ());
         var now_ms = timeToMilliseconds(now);
